@@ -1,4 +1,5 @@
 doctrine:
+    host: ***
     dbname: ***
     user: ***
     password: ***
