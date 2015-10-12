@@ -10,12 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 class SchoolClass extends \Kdyby\Doctrine\Entities\BaseEntity
 {
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue()
-     */
-    protected  $id;
+    use \Kdyby\Doctrine\Entities\Attributes\Identifier;
 
     /**
      * @ORM\ManyToOne(targetEntity="Grade")
