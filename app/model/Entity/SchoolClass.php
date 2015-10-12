@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class SchoolClass extends \Kdyby\Doctrine\Entities\BaseEntity
+class SchoolClass
 {
 
     use \Kdyby\Doctrine\Entities\Attributes\Identifier;

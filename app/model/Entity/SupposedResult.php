@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class SupposedResult extends \Kdyby\Doctrine\Entities\BaseEntity
+class SupposedResult
 {
 
     use \Kdyby\Doctrine\Entities\Attributes\Identifier;

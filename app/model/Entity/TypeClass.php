@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class TypeClass extends \Kdyby\Doctrine\Entities\BaseEntity
+class TypeClass
 {
 
     use \Kdyby\Doctrine\Entities\Attributes\Identifier;

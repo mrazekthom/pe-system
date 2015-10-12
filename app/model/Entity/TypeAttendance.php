@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class TypeAttendance extends \Kdyby\Doctrine\Entities\BaseEntity
+class TypeAttendance
 {
 
     use \Kdyby\Doctrine\Entities\Attributes\Identifier;
