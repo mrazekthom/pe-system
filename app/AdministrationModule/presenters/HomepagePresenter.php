@@ -12,20 +12,14 @@ use App\Model\EntityService\StudentQuery;
 class HomepagePresenter extends BaseAdministrationPresenter
 {
 
-    /**
-     * @inject
-     * @var \Kdyby\Doctrine\EntityManager
-     */
+    /** @var \Kdyby\Doctrine\EntityManager @inject */
     public $EM;
-
-    /** @var StudentQuery @inject */
-    public $SQ;
 
     public function renderDefault()
     {
         //Only for testing
         $query = new StudentQuery();
-        $query->setClass('4A');
+        $query->setEducationDay('Monday');
         $result = $this->EM->getRepository(Student::class)->fetch($query);
         $foo = $result;
         foreach ($foo as $bar) {

@@ -58,16 +58,16 @@ class StudentQuery extends QueryObject
             ->andWhere('y.actual = :year')
             ->setParameter('year', $this::ACTUAL);
 
-        if (isset($this->typeClass)) {
+        if ($this->typeClass) {
             $qb->andWhere('t.class = :typeClass')
                 ->setParameter('typeClass', $this->typeClass);
         }
-        if (isset($this->grade)) {
+        if ($this->grade) {
             $qb->andWhere('g.grade = :grade')
                 ->setParameter('grade', $this->grade);
         }
-        if (isset($this->educationDay)) {
-            $qb->setParameter('typeClass', $this->typeClass)
+        if ($this->educationDay) {
+            $qb->andWhere('c.educationDay = :educationDay')
                 ->setParameter('educationDay', $this->educationDay);
         }
 
