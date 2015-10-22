@@ -11,17 +11,29 @@ application:
 session:
 	expiration: 14 days
 
-
-services:
-	router: App\RouterFactory::createRouter
-
-	- App\Model\EntityService\StudentQuery
-
 extensions:
 	console: Kdyby\Console\DI\ConsoleExtension
 	events: Kdyby\Events\DI\EventsExtension
 	annotations: Kdyby\Annotations\DI\AnnotationsExtension
 	doctrine: Kdyby\Doctrine\DI\OrmExtension
 
+decorator:
+    App\Components\BaseComponent:
+        inject: yes
+
 doctrine:
 	defaultRepositoryClassName: Kdyby\Doctrine\EntityRepository
+
+services:
+	router: App\RouterFactory::createRouter
+
+	- App\Misc\FilterLoader
+
+	# query maker service
+	- App\Model\EntityService\StudentQuery
+
+	# factory app logic
+	- App\Model\Service\StudentService
+
+	# component factories
+	- App\Components\IListOfStudentsComponentFactory
