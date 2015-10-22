@@ -14,7 +14,7 @@ class Grade
     use \Kdyby\Doctrine\Entities\Attributes\Identifier;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="integer")
      */
     protected $grade;
 
