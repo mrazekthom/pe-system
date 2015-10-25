@@ -29,11 +29,6 @@ services:
 
 	- App\Misc\FilterLoader
 
-	# query maker service
-	- App\Model\EntityService\StudentQuery
-
-	# factory app logic
-	- App\Model\Service\StudentService
 
 	# component factories
-	- App\Components\IListOfStudentsComponentFactory
+	- App\Components\IStudentListFactory

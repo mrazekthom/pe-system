@@ -2,7 +2,7 @@
 
 namespace App\AdministrationModule\Presenters;
 
-use App\Components\IListOfStudentsComponentFactory;
+use App\Components\IStudentListFactory;
 
 
 /**
@@ -11,8 +11,8 @@ use App\Components\IListOfStudentsComponentFactory;
 class HomepagePresenter extends BaseAdministrationPresenter
 {
 
-    /** @var  IListOfStudentsComponentFactory @inject */
-    public $ILOSCF;
+    /** @var  IStudentListFactory @inject */
+    public $studentList;
 
 
     public function renderDefault()
@@ -22,7 +22,7 @@ class HomepagePresenter extends BaseAdministrationPresenter
 
     public function createComponentListOfStudents()
     {
-        return $this->ILOSCF->create();
+        return $this->studentList->create();
     }
 
 
