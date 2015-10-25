@@ -2,6 +2,7 @@
 
 namespace App\Misc;
 
+use App\Model\Entity\SchoolClass;
 use Nette\Application\LinkGenerator;
 use Nette\Application\UI\ITemplate;
 use Nette\Bridges\ApplicationLatte\Template;
@@ -33,6 +34,14 @@ class FilterLoader extends Object
             $type = $template->getReflection()->getName();
             throw new InvalidArgumentException("\$template have to be instance of Nette\\Bridges\\ApplicationLatte\\Template, '$type' given.");
         }
+
+        $template->addFilter('class', function($class){
+            return $class->grade->grade . $class->typeClass->class;
+        });
+
+        $template->addFilter('fullName', function($student){
+            return $student->surname . ' ' . $student->name;
+        });
 
         return $template;
     }
