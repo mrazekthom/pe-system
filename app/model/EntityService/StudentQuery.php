@@ -21,15 +21,10 @@ class StudentQuery extends QueryObject
     private $grade = NULL;
     private $educationDay = NULL;
 
-    public function setClass($class)
+    public function setClass(Grade $grade,TypeClass $typeClass)
     {
-        $this->grade = Strings::match($class, '~[0-9]~')[0];
-        $this->typeClass = Strings::match($class, '~[A-Z]~')[0];
-    }
-
-    public function setEducationDay($day)
-    {
-        $this->educationDay = $day; //TODO: security type day
+        $this->grade = $grade->id;
+        $this->typeClass = $typeClass->id;
     }
 
     public function setGrade($grade)
@@ -37,11 +32,17 @@ class StudentQuery extends QueryObject
         $this->grade = Strings::match($grade, '~[0-9]~')[0];
     }
 
+    /**
+    public function setEducationDay($day)
+    {
+        $this->educationDay = $day; //TODO: security type day
+    }
+
     public function getActualDay()
     {
         $this->educationDay = date('l');
     }
-
+    */
 
     /**
      * @param \Kdyby\Persistence\Queryable $repository
@@ -59,17 +60,17 @@ class StudentQuery extends QueryObject
             ->setParameter('year', $this::ACTUAL);
 
         if ($this->typeClass) {
-            $qb->andWhere('t.class = :typeClass')
+            $qb->andWhere('t.id = :typeClass')
                 ->setParameter('typeClass', $this->typeClass);
         }
         if ($this->grade) {
-            $qb->andWhere('g.grade = :grade')
+            $qb->andWhere('g.id = :grade')
                 ->setParameter('grade', $this->grade);
         }
-        if ($this->educationDay) {
+        /**if ($this->educationDay) {
             $qb->andWhere('c.educationDay = :educationDay')
                 ->setParameter('educationDay', $this->educationDay);
-        }
+        }*/
 
         return $qb;
     }

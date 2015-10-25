@@ -8,27 +8,27 @@ use Kdyby\Doctrine\Entities\MagicAccessors;
 /**
  * @ORM\Entity
  */
-class SchoolClass
+class EducationDay
 {
     use MagicAccessors;
     use \Kdyby\Doctrine\Entities\Attributes\Identifier;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Grade")
+     * @ORM\ManyToOne(targetEntity="TypeDay")
      * @ORM\JoinColumn(nullable=false)
      */
-    protected $grade;
+    protected $typeDay;
 
     /**
-     * @ORM\ManyToOne(targetEntity="TypeClass")
+     * @ORM\ManyToOne(targetEntity="SchoolLesson")
      * @ORM\JoinColumn(nullable=false)
      */
-    protected $typeClass;
+    protected $schoolLesson;
 
     /**
-     * @ORM\OneToMany(targetEntity="EducationDay", mappedBy="schoolClass")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="SchoolClass", inversedBy="educationDay")
+     * @ORM\JoinColumn(name="school_class_id", referencedColumnName="id")
      */
-    protected $educationDay;
+    protected $schoolClass;
 
 }

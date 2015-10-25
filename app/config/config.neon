@@ -31,4 +31,6 @@ services:
 
 
 	# component factories
-	- App\Components\IStudentListFactory
+	- implement: App\Components\IStudentListFactory
+	  parameters: [App\Model\Entity\Grade grade, App\Model\Entity\TypeClass typeClass]
+	  arguments: [%grade%, %typeClass%]
