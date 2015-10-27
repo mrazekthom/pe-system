@@ -17,6 +17,7 @@ extensions:
 	annotations: Kdyby\Annotations\DI\AnnotationsExtension
 	doctrine: Kdyby\Doctrine\DI\OrmExtension
 
+
 decorator:
     App\Components\BaseComponent:
         inject: yes
@@ -25,7 +26,8 @@ doctrine:
 	defaultRepositoryClassName: Kdyby\Doctrine\EntityRepository
 
 services:
-	router: App\RouterFactory::createRouter
+	router: @App\Router\RouterFactory::createRouter
+	- App\Router\RouterFactory
 
 	- App\Misc\FilterLoader
 
@@ -34,3 +36,7 @@ services:
 	- implement: App\Components\IStudentListFactory
 	  parameters: [App\Model\Entity\Grade grade, App\Model\Entity\TypeClass typeClass]
 	  arguments: [%grade%, %typeClass%]
+	- implement: App\Components\IClassListFactory
+	  parameters: [App\Model\Entity\Grade grade]
+	  arguments: [%grade%]
+	- implement: App\Components\IGradeListFactory

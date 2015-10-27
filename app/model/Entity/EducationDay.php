@@ -29,6 +29,6 @@ class EducationDay
      * @ORM\ManyToOne(targetEntity="SchoolClass", inversedBy="educationDay")
      * @ORM\JoinColumn(name="school_class_id", referencedColumnName="id")
      */
-    protected $schoolClass;
+    protected $schoolClass; //TODO: nullable:false
 
 }

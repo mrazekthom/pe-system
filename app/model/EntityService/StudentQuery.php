@@ -10,39 +10,38 @@ use App\Model\Entity\TypeClass;
 use Doctrine\ORM\Query\Expr\Join;
 use Kdyby\Doctrine\QueryObject;
 use Kdyby\Persistence\Queryable;
-use Nette\Utils\Strings;
 
 class StudentQuery extends QueryObject
 {
 
     CONST ACTUAL = 1;
 
-    private $typeClass = NULL;
-    private $grade = NULL;
-    private $educationDay = NULL;
+    private $typeClassID;
+    private $gradeID;
+    private $educationDay;
 
-    public function setClass(Grade $grade,TypeClass $typeClass)
+    public function setClass(Grade $grade, TypeClass $typeClass)
     {
-        $this->grade = $grade->id;
-        $this->typeClass = $typeClass->id;
-    }
-
-    public function setGrade($grade)
-    {
-        $this->grade = Strings::match($grade, '~[0-9]~')[0];
+        $this->gradeID = $grade->id;
+        $this->typeClassID = $typeClass->id;
     }
 
     /**
-    public function setEducationDay($day)
-    {
-        $this->educationDay = $day; //TODO: security type day
-    }
-
-    public function getActualDay()
-    {
-        $this->educationDay = date('l');
-    }
-    */
+     * public function setGrade($grade)
+     * {
+     * $this->grade = Strings::match($grade, '~[0-9]~');
+     * }
+     *
+     * public function setEducationDay($day)
+     * {
+     * $this->educationDay = $day; //TODO: security type day
+     * }
+     *
+     * public function getActualDay()
+     * {
+     * $this->educationDay = date('l');
+     * }
+     */
 
     /**
      * @param \Kdyby\Persistence\Queryable $repository
@@ -59,18 +58,18 @@ class StudentQuery extends QueryObject
             ->andWhere('y.actual = :year')
             ->setParameter('year', $this::ACTUAL);
 
-        if ($this->typeClass) {
+        if ($this->typeClassID) {
             $qb->andWhere('t.id = :typeClass')
-                ->setParameter('typeClass', $this->typeClass);
+                ->setParameter('typeClass', $this->typeClassID);
         }
-        if ($this->grade) {
+        if ($this->gradeID) {
             $qb->andWhere('g.id = :grade')
-                ->setParameter('grade', $this->grade);
+                ->setParameter('grade', $this->gradeID);
         }
         /**if ($this->educationDay) {
-            $qb->andWhere('c.educationDay = :educationDay')
-                ->setParameter('educationDay', $this->educationDay);
-        }*/
+         * $qb->andWhere('c.educationDay = :educationDay')
+         * ->setParameter('educationDay', $this->educationDay);
+         * }*/
 
         return $qb;
     }

@@ -1,5 +1,7 @@
 <div n:foreach="$students as $student">
+    {first}
+        Class: {$student->class|class} <br>
+    {/first}
     ID: {$student->id},
-    Class: {$student->class|class},
     Name: {$student|fullName}
 </div>
