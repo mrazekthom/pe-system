@@ -71,7 +71,12 @@ class RouterFactory
             ),
         ));
 
-        $administration[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
+        $administration[] = new Route('<presenter>/<action>[/<id>]', array(
+            'model' => 'Administration',
+            'presenter' => 'Homepage',
+            'action' => 'default'
+        ));
+
 
         $admin = new RouteList('Admin');
 
@@ -83,8 +88,8 @@ class RouterFactory
 
         $router = new RouteList();
 
-        $router[] = $administration;
         $router[] = $admin;
+        $router[] = $administration;
         $router[] = $base;
 
         return $router;

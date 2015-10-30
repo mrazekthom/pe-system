@@ -40,3 +40,4 @@ services:
 	  parameters: [App\Model\Entity\Grade grade]
 	  arguments: [%grade%]
 	- implement: App\Components\IGradeListFactory
+	- implement: App\Components\IStudentImportFactory
