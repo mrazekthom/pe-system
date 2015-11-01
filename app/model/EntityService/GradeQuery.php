@@ -22,7 +22,9 @@ class GradeQuery extends QueryObject
     {
         $qb = $repository->createQueryBuilder()
             ->select('c')->from(SchoolClass::class, 'c')
-            ->innerJoin(Grade::class, 'g', Join::WITH, 'c.grade = g')
+            ->leftJoin(Grade::class, 'g', Join::WITH, 'c.grade = g')
+            ->andWhere('c.id = g.id')
+            ->orderBy('g.grade', 'ASC')
             ->innerJoin(SchoolYear::class, 'y', Join::WITH, 'g.schoolYear = y')
             ->andWhere('y.actual = :year')
             ->setParameter('year', $this::ACTUAL);

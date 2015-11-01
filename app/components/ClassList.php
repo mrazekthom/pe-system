@@ -5,8 +5,20 @@ namespace App\Components;
 
 use App\Model\Entity\Grade;
 use App\Model\Entity\SchoolClass;
-use App\Model\EntityService\ClassQuery;
+use App\Model\EntityService\ClassesQuery;
 use Doctrine\ORM\EntityManager;
+
+interface IClassListFactory
+{
+
+
+    /**
+     * @param Grade $grade
+     * @return ClassList
+     */
+    public function create(Grade $grade);
+
+}
 
 /**
  * Class ClassList
@@ -35,21 +47,9 @@ class ClassList extends BaseComponent
 
     public function render()
     {
-        $query = new ClassQuery();
+        $query = new ClassesQuery();
         $query->setGrade($this->grade);
         $this->template->classes = $this->entityManager->getRepository(SchoolClass::class)->fetch($query);
         $this->template->render();
     }
-}
-
-interface IClassListFactory
-{
-
-
-    /**
-     * @param Grade $grade
-     * @return ClassList
-     */
-    public function create(Grade $grade);
-
 }

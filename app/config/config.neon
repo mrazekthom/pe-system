@@ -31,6 +31,8 @@ services:
 
 	- App\Misc\FilterLoader
 
+	# aplication service
+	- App\Model\Service\StudentImportService
 
 	# component factories
 	- implement: App\Components\IStudentListFactory
