@@ -7,7 +7,6 @@ use App\Components\IGradeListFactory;
 use App\Components\IStudentListFactory;
 use App\Model\Entity\Grade;
 use App\Model\Entity\TypeClass;
-use Kdyby\Doctrine\EntityManager;
 
 
 /**
@@ -25,17 +24,13 @@ class ShowListPresenter extends BaseAdministrationPresenter
     /** @var IGradeListFactory @inject */
     public $gradeList;
 
-    /** @var  EntityManager @inject */
-    public $EM;
 
     public function renderGrade(Grade $grade)
     {
-
     }
 
     public function renderClass(Grade $grade, TypeClass $typeClass)
     {
-
     }
 
     public function createComponentGradeList()

@@ -11,12 +11,11 @@ use Doctrine\ORM\EntityManager;
 interface IClassListFactory
 {
 
-
     /**
      * @param Grade $grade
      * @return ClassList
      */
-    public function create(Grade $grade);
+    public function create(Grade $grade = NULL);
 
 }
 
@@ -48,8 +47,11 @@ class ClassList extends BaseComponent
     public function render()
     {
         $query = new ClassesQuery();
-        $query->setGrade($this->grade);
-        $this->template->classes = $this->entityManager->getRepository(SchoolClass::class)->fetch($query);
+        if ($this->grade) {
+            $query->setGrade($this->grade);
+        }
+
+        $this->template->classes = $classes = $this->entityManager->getRepository(SchoolClass::class)->fetch($query);
         $this->template->render();
     }
 }

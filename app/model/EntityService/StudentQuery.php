@@ -18,7 +18,6 @@ class StudentQuery extends QueryObject
 
     private $typeClassID;
     private $gradeID;
-    private $educationDay;
 
     public function setClass(Grade $grade, TypeClass $typeClass)
     {
@@ -27,27 +26,10 @@ class StudentQuery extends QueryObject
     }
 
     /**
-     * public function setGrade($grade)
-     * {
-     * $this->grade = Strings::match($grade, '~[0-9]~');
-     * }
-     *
-     * public function setEducationDay($day)
-     * {
-     * $this->educationDay = $day; //TODO: security type day
-     * }
-     *
-     * public function getActualDay()
-     * {
-     * $this->educationDay = date('l');
-     * }
-     */
-
-    /**
      * @param \Kdyby\Persistence\Queryable $repository
      * @return \Doctrine\ORM\Query|\Doctrine\ORM\QueryBuilder
      */
-    protected function doCreateQuery(Queryable $repository)
+    public function doCreateQuery(Queryable $repository)
     {
         $qb = $repository->createQueryBuilder()
             ->select('s')->from(Student::class, 's')
@@ -66,10 +48,6 @@ class StudentQuery extends QueryObject
             $qb->andWhere('g.id = :grade')
                 ->setParameter('grade', $this->gradeID);
         }
-        /**if ($this->educationDay) {
-         * $qb->andWhere('c.educationDay = :educationDay')
-         * ->setParameter('educationDay', $this->educationDay);
-         * }*/
 
         return $qb;
     }

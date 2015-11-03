@@ -1,0 +1,3 @@
+$(function () {
+    $('.grido').grido();
+});

@@ -39,7 +39,7 @@ services:
 	  parameters: [App\Model\Entity\Grade grade, App\Model\Entity\TypeClass typeClass]
 	  arguments: [%grade%, %typeClass%]
 	- implement: App\Components\IClassListFactory
-	  parameters: [App\Model\Entity\Grade grade]
+	  parameters: [App\Model\Entity\Grade grade = NULL]
 	  arguments: [%grade%]
 	- implement: App\Components\IGradeListFactory
 	- implement: App\Components\IStudentImportFactory

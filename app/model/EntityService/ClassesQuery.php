@@ -5,6 +5,7 @@ namespace App\Model\EntityService;
 use App\Model\Entity\Grade;
 use App\Model\Entity\SchoolClass;
 use App\Model\Entity\SchoolYear;
+use App\Model\Entity\TypeClass;
 use Doctrine\ORM\Query\Expr\Join;
 use Kdyby\Doctrine\QueryObject;
 use Kdyby\Persistence\Queryable;
@@ -12,7 +13,7 @@ use Kdyby\Persistence\Queryable;
 class ClassesQuery extends QueryObject
 {
 
-    CONST ACTUAL = 1;
+    CONST ACTUALYEAR = 1;
 
     private $gradeID;
 
@@ -31,10 +32,16 @@ class ClassesQuery extends QueryObject
             ->select('c')->from(SchoolClass::class, 'c')
             ->innerJoin(Grade::class, 'g', Join::WITH, 'c.grade = g')
             ->innerJoin(SchoolYear::class, 'y', Join::WITH, 'g.schoolYear = y')
+            ->innerJoin(TypeClass::class, 't', Join::WITH, 'c.typeClass = t')
             ->andWhere('y.actual = :year')
-            ->setParameter('year', $this::ACTUAL)
-            ->andWhere('g.id = :grade')
-            ->setParameter('grade', $this->gradeID);
+            ->setParameter('year', $this::ACTUALYEAR)
+            ->orderBy('g.grade', 'ASC')
+            ->addOrderBy('t.class', 'ASC');
+
+        if ($this->gradeID) {
+            $qb->andWhere('g.id = :grade')
+                ->setParameter('grade', $this->gradeID);
+        }
 
         return $qb;
     }

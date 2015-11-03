@@ -53,7 +53,6 @@ class StudentImportService
     private function writeToDB($schoolClass, $students)
     {
         $class = $this->getClass($schoolClass);
-        dump($class);
         $this->writeStudentToDB($class, $students);
     }
 
@@ -113,7 +112,6 @@ class StudentImportService
         if (!$grade) {
             $newEntityGrade = new Grade();
             $newEntityGrade->setGrade($grade);
-            //TODO: do clearly
             $newEntityGrade->setSchoolYear($this->entityManager->getRepository(SchoolYear::class)->findOneBy([
                 'actual' => 1
             ]));
@@ -129,11 +127,18 @@ class StudentImportService
     private function writeStudentToDB($schoolClass, $students)
     {
         foreach ($students as $student) {
-            $newEntityStudent = new Student();
-            $newEntityStudent->setClass($schoolClass);
-            $newEntityStudent->setName($student->name);
-            $newEntityStudent->setSurname($student->surname);
-            $this->entityManager->persist($newEntityStudent);
+            $entityStudent = $this->entityManager->getRepository(Student::class)->findOneBy([
+                'class' => $schoolClass,
+                'name' => $student->name,
+                'surname' => $student->surname
+            ]);
+            if (!$entityStudent) {
+                $newEntityStudent = new Student();
+                $newEntityStudent->setClass($schoolClass);
+                $newEntityStudent->setName($student->name);
+                $newEntityStudent->setSurname($student->surname);
+                $this->entityManager->persist($newEntityStudent);
+            }
         }
         $this->entityManager->flush();
     }

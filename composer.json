@@ -5,7 +5,8 @@
 	"dibi/dibi": "dev-master",
 	"jandrabek/tracy-gitversion-panel": "dev-master",
 	"jsmitka/nette-xdebug-helper": "dev-master",
-	"kdyby/doctrine": "dev-master"
+	"kdyby/doctrine": "dev-master",
+	"o5/grido": "dev-master"
   },
   "minimum-stability": "beta",
   "prefer-stable": true
