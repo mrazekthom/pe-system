@@ -8,6 +8,7 @@ use App\Model\Entity\SchoolYear;
 use App\Model\Entity\Student;
 use App\Model\Entity\TypeClass;
 use App\Model\EntityService\ClassQuery;
+use App\Model\EntityService\GradeQuery;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Utils\ArrayHash;
 use Nette\Utils\Strings;
@@ -61,7 +62,6 @@ class StudentImportService
     {
         $schoolClassGrade = Strings::split($schoolClass, '/[A-Z]/')[0];
         $schoolClassTypeClass = Strings::split($schoolClass, '/[0-9]/')[1];
-
         $query = new ClassQuery();
         $query->setClass($schoolClassGrade, $schoolClassTypeClass);
         $IssetSchoolClass = $this->entityManager->getRepository(SchoolClass::class)->fetch($query)->count();
@@ -106,10 +106,10 @@ class StudentImportService
 
     private function getGrade($grade)
     {
-        $gradeEntity = $this->entityManager->getRepository(Grade::class)->findOneBy([
-            'grade' => $grade
-        ]);
-        if (!$grade) {
+        $query = new GradeQuery();
+        $query->setGrade($grade);
+        $gradeEntity = $this->entityManager->getRepository(Grade::class)->fetch($query);
+        if (!$gradeEntity->count()) {
             $newEntityGrade = new Grade();
             $newEntityGrade->setGrade($grade);
             $newEntityGrade->setSchoolYear($this->entityManager->getRepository(SchoolYear::class)->findOneBy([
@@ -117,11 +117,11 @@ class StudentImportService
             ]));
             $this->entityManager->persist($newEntityGrade);
             $this->entityManager->flush();
-            $gradeEntity = $this->entityManager->getRepository(Grade::class)->findOneBy([
-                'grade' => $grade
-            ]);
+            return $this->getGrade($grade);
         }
-        return $gradeEntity;
+        foreach ($gradeEntity as $result) {
+        }
+        return $result;
     }
 
     private function writeStudentToDB($schoolClass, $students)

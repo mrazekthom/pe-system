@@ -33,6 +33,7 @@ services:
 
 	# aplication service
 	- App\Model\Service\StudentImportService
+	- App\Model\Service\CreateNewSchoolYearService
 
 	# component factories
 	- implement: App\Components\IStudentListFactory
@@ -43,3 +44,4 @@ services:
 	  arguments: [%grade%]
 	- implement: App\Components\IGradeListFactory
 	- implement: App\Components\IStudentImportFactory
+	- implement: App\Components\ICreateNewSchoolYearFactory

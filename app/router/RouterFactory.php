@@ -4,6 +4,7 @@ namespace App\Router;
 
 use App\Model\Entity\Grade;
 use App\Model\Entity\TypeClass;
+use App\Model\EntityService\GradeQuery;
 use Doctrine\ORM\EntityManager;
 use Nette;
 use Nette\Application\Routers\Route;
@@ -45,7 +46,11 @@ class RouterFactory
                     return $grade->getGrade();
                 },
                 Route::FILTER_IN => function ($grade) {
-                    return $this->entityManager->getRepository(Grade::class)->findOneBy(array('grade' => $grade));
+                    $query = new GradeQuery();
+                    $query->setGrade($grade);
+                    $results = $this->entityManager->getRepository(Grade::class)->fetch($query);
+                    foreach ($results as $result)
+                        return $result;
                 }
             )
         ));
@@ -58,6 +63,11 @@ class RouterFactory
                     return $grade->getGrade();
                 },
                 Route::FILTER_IN => function ($grade) {
+                    $query = new GradeQuery();
+                    $query->setGrade($grade);
+                    $results = $this->entityManager->getRepository(Grade::class)->fetch($query);
+                    foreach ($results as $result)
+                        return $result;
                     return $this->entityManager->getRepository(Grade::class)->findOneBy(array('grade' => $grade));
                 }
             ),

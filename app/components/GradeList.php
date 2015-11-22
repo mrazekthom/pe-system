@@ -3,9 +3,19 @@
 namespace App\Components;
 
 
-use App\Model\Entity\SchoolClass;
+use App\Model\Entity\Grade;
 use App\Model\EntityService\GradeQuery;
 use Doctrine\ORM\EntityManager;
+
+interface IGradeListFactory
+{
+
+    /**
+     * @return GradeList
+     */
+    public function create();
+
+}
 
 /**
  * Class GradeList
@@ -29,17 +39,7 @@ class GradeList extends BaseComponent
     public function render()
     {
         $query = new GradeQuery();
-        $this->template->classes = $this->entityManager->getRepository(SchoolClass::class)->fetch($query);
+        $this->template->grades = $this->entityManager->getRepository(Grade::class)->fetch($query);
         $this->template->render();
     }
-}
-
-interface IGradeListFactory
-{
-
-    /**
-     * @return GradeList
-     */
-    public function create();
-
 }

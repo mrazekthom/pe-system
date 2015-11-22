@@ -8,6 +8,7 @@ use App\Model\Entity\Student;
 use App\Model\Entity\TypeClass;
 use App\Model\EntityService\StudentQuery;
 use Doctrine\ORM\EntityManager;
+use Grido\Components\Filters\Filter;
 use Grido\DataSources\Doctrine;
 use Grido\Grid;
 
@@ -68,9 +69,11 @@ class StudentList extends BaseComponent
         $query->setClass($this->grade, $this->typeClass);
 
         $grid = new Grid($this, $name);
-
         $grid->setModel(new Doctrine($query->doCreateQuery($this->entityManager->getRepository(Student::class))));
-        $grid->addColumnNumber('id', '#');
+        $grid->setDefaultPerPage(100);
+        $grid->setFilterRenderType(Filter::RENDER_INNER);
+
+
         $grid->addColumnText('class', 'Třída')
             ->setCustomRender(function ($student) {
                 return $student->class->grade->grade . $student->class->typeClass->class;
@@ -90,9 +93,7 @@ class StudentList extends BaseComponent
                 return TRUE;
             });
 
-        $grid->setDefaultPerPage(100);
-
-        $grid->setExport();
+        return $grid;
     }
 
 }

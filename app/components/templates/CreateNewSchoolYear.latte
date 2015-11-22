@@ -1,0 +1,38 @@
+{form newYearForm}
+    <table>
+        <tr>
+            <th><label for="frm-createNewSchoolYear-newYearForm-year">Začátek školního roku: </label></th>
+            <td><input type="text" name="year" id="frm-createNewSchoolYear-newYearForm-year" required
+                       data-nette-rules='[{"op":":filled","msg":"This field is required."}]' value="2015"
+                       class="text"><span id="school-year"></span></td>
+        </tr>
+        <tr>
+            <th></th>
+            <td><label for="frm-createNewSchoolYear-newYearForm-migration"><input type="checkbox" name="migration"
+                                                                                  id="frm-createNewSchoolYear-newYearForm-migration"
+                                                                                  checked>Přenést žáky z minulého roku?</label>
+            </td>
+        </tr>
+        <tr>
+            <th></th>
+            <td><input type="submit" name="create" value="Vytvořit" class="button"></td>
+        </tr>
+    </table>
+{/form}
+
+<script>
+    $(showSchoolYear);
+    $("#frm-createNewSchoolYear-newYearForm-year").on('input', showSchoolYear);
+
+    function showSchoolYear() {
+        var sYear = parseInt($("#frm-createNewSchoolYear-newYearForm-year").val());
+        var text;
+        if (sYear > 2000 && sYear < 3000) {
+            var eYear = sYear + 1;
+            text = "(Školní rok: " + sYear + " - " + eYear + ")";
+        } else {
+            text = "Neplatný rok";
+        }
+        $("#school-year").text(text);
+    }
+</script>
