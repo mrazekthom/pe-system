@@ -92,6 +92,9 @@ class StudentList extends BaseComponent
                 $entityManager->flush();
                 return TRUE;
             });
+        $grid->addActionEvent('absent', 'Důvod nepřítomnosti', function(){
+            return TRUE;
+        });
 
         return $grid;
     }

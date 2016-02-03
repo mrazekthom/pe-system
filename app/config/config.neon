@@ -34,6 +34,7 @@ services:
 	# aplication service
 	- App\Model\Service\StudentImportService
 	- App\Model\Service\CreateNewSchoolYearService
+	- App\Model\Service\SchoolTimetableService
 
 	# component factories
 	- implement: App\Components\IStudentListFactory

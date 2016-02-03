@@ -23,4 +23,8 @@ class HomepagePresenter extends BaseAdminPresenter
     }
 
 
+    public function createComponentEditSchoolTimetable(){
+
+    }
+
 }
