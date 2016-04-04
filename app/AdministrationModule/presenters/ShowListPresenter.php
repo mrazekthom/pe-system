@@ -31,6 +31,8 @@ class ShowListPresenter extends BaseAdministrationPresenter
 
     public function renderClass(Grade $grade, TypeClass $typeClass)
     {
+        $this->template->grade = $this->getParameter('grade');
+        $this->template->typeClass = $this->getParameter('typeClass');
     }
 
     public function createComponentGradeList()
@@ -47,6 +49,5 @@ class ShowListPresenter extends BaseAdministrationPresenter
     {
         return $this->studentList->create($this->getParameter('grade'), $this->getParameter('typeClass'));
     }
-
 
 }

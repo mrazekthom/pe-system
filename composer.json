@@ -6,7 +6,8 @@
 	"jandrabek/tracy-gitversion-panel": "dev-master",
 	"jsmitka/nette-xdebug-helper": "dev-master",
 	"kdyby/doctrine": "dev-master",
-	"o5/grido": "dev-master"
+	"o5/grido": "dev-master",
+	"nella/forms-datetime": "dev-master"
   },
   "minimum-stability": "beta",
   "prefer-stable": true

@@ -22,9 +22,4 @@ class HomepagePresenter extends BaseAdminPresenter
         return $this->studentImport->create();
     }
 
-
-    public function createComponentEditSchoolTimetable(){
-
-    }
-
 }

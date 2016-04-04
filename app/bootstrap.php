@@ -16,6 +16,12 @@ $configurator->createRobotLoader()
 $configurator->addConfig(__DIR__ . '/config/config.neon');
 $configurator->addConfig(__DIR__ . '/config/config.local.neon');
 
+use Nette\Forms\Container;
+
+Container::extensionMethod('addDatePicker', function (Container $container, $name, $label = NULL) {
+	return $container[$name] = new JanTvrdik\Components\DatePicker($label);
+});
+
 $container = $configurator->createContainer();
 
 return $container;

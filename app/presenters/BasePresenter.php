@@ -2,8 +2,8 @@
 
 namespace App\Presenters;
 
-use Nette\Utils\Strings;
 use Nette\Application\UI\Presenter;
+use Nette\Utils\Strings;
 
 
 /**
@@ -11,6 +11,7 @@ use Nette\Application\UI\Presenter;
  */
 abstract class BasePresenter extends Presenter
 {
+
 
 	/**
 	 * Formats layout template file names.
@@ -55,5 +56,6 @@ abstract class BasePresenter extends Presenter
 		);
 		return $list;
 	}
+
 
 }

@@ -8,10 +8,18 @@
 
 	<title>{ifset title}{include title|striptags} | {/ifset}Správa TV - spseol.cz</title>
 
-	<link rel="stylesheet" href="{$gridoAssetsPath}/client-side/css/grido.css">
+	{block js}
 
 	<script src="https://cdn.rawgit.com/jquery/jquery/1.11.2/dist/jquery.min.js"></script>
 	<script src="https://cdn.rawgit.com/vojtech-dobes/nette.ajax.js/2.0.0/nette.ajax.js"></script>
+	{/block}
+
+	<link rel="stylesheet" href="{$basePath}/css/grido.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+	<link rel="stylesheet" media="screen,projection,tv"
+		  href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css">
+
+
 	<script src="{$gridoAssetsPath}/client-side/js/grido.js"></script>
 	<script src="{$basePath}/js/main.js"></script>
 

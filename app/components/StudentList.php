@@ -2,7 +2,7 @@
 
 namespace App\Components;
 
-
+use App\Model\Entity\Attendance as EntityAttendance;
 use App\Model\Entity\Grade;
 use App\Model\Entity\Student;
 use App\Model\Entity\TypeClass;
@@ -14,7 +14,6 @@ use Grido\Grid;
 
 interface IStudentListFactory
 {
-
 
     /**
      * @param Grade     $grade
@@ -92,9 +91,19 @@ class StudentList extends BaseComponent
                 $entityManager->flush();
                 return TRUE;
             });
-        $grid->addActionEvent('absent', 'Důvod nepřítomnosti', function(){
-            return TRUE;
-        });
+        $grid->addColumnNumber('id', 'Účast')
+            ->setCustomRender(function ($student) use ($entityManager) {
+                $attendanceEntity = $entityManager->getRepository(EntityAttendance::class)->findBy(['student.id' => $student->id]);
+                $percentAttendance = [];
+                foreach ($attendanceEntity as $entity) {
+                    $percentAttendance[] = $entity->typeAttendance->getPercentAttendance();
+                }
+                if (count($percentAttendance) == 0) {
+                    return '-- %';
+                }
+                return (string)intval(array_sum($percentAttendance) / count($percentAttendance)) . ' %';
+            });
+
 
         return $grid;
     }

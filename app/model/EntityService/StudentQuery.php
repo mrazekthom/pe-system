@@ -21,8 +21,8 @@ class StudentQuery extends QueryObject
 
     public function setClass(Grade $grade, TypeClass $typeClass)
     {
-        $this->gradeID = $grade->id;
-        $this->typeClassID = $typeClass->id;
+        $this->gradeID = $grade->getId();
+        $this->typeClassID = $typeClass->getId();
     }
 
     /**

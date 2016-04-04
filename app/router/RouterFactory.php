@@ -2,6 +2,7 @@
 
 namespace App\Router;
 
+use App\Model\Entity\Day;
 use App\Model\Entity\Grade;
 use App\Model\Entity\TypeClass;
 use App\Model\EntityService\GradeQuery;
@@ -53,6 +54,93 @@ class RouterFactory
                         return $result;
                 }
             )
+        ));
+
+        $administration[] = new Route('detailni-ucast/<grade><typeClass>', array(
+            'presenter' => 'Attendance',
+            'action' => 'detailAll',
+            'grade' => array(
+                Route::FILTER_OUT => function (Grade $grade) {
+                    return $grade->getGrade();
+                },
+                Route::FILTER_IN => function ($grade) {
+                    $query = new GradeQuery();
+                    $query->setGrade($grade);
+                    $results = $this->entityManager->getRepository(Grade::class)->fetch($query);
+                    foreach ($results as $result)
+                        return $result;
+                    return $this->entityManager->getRepository(Grade::class)->findOneBy(array('grade' => $grade));
+                }
+            ),
+            'typeClass' => array(
+                Route::FILTER_OUT => function (TypeClass $class) {
+                    return $class->getClass();
+                },
+                Route::FILTER_IN => function ($class) {
+                    return $this->entityManager->getRepository(TypeClass::class)->findOneBy(array('class' => $class));
+                }
+            ),
+        ));
+
+        $administration[] = new Route('ucast/<grade><typeClass>', array(
+            'presenter' => 'Attendance',
+            'action' => 'default',
+            'grade' => array(
+                Route::FILTER_OUT => function (Grade $grade) {
+                    return $grade->getGrade();
+                },
+                Route::FILTER_IN => function ($grade) {
+                    $query = new GradeQuery();
+                    $query->setGrade($grade);
+                    $results = $this->entityManager->getRepository(Grade::class)->fetch($query);
+                    foreach ($results as $result)
+                        return $result;
+                    return $this->entityManager->getRepository(Grade::class)->findOneBy(array('grade' => $grade));
+                }
+            ),
+            'typeClass' => array(
+                Route::FILTER_OUT => function (TypeClass $class) {
+                    return $class->getClass();
+                },
+                Route::FILTER_IN => function ($class) {
+                    return $this->entityManager->getRepository(TypeClass::class)->findOneBy(array('class' => $class));
+                }
+            ),
+        ));
+
+        $administration[] = new Route('ucast-editace/<grade><typeClass>/<day>', array(
+            'presenter' => 'Attendance',
+            'action' => 'edit',
+            'grade' => array(
+                Route::FILTER_OUT => function (Grade $grade) {
+                    return $grade->getGrade();
+                },
+                Route::FILTER_IN => function ($grade) {
+                    $query = new GradeQuery();
+                    $query->setGrade($grade);
+                    $results = $this->entityManager->getRepository(Grade::class)->fetch($query);
+                    foreach ($results as $result)
+                        return $result;
+                    return $this->entityManager->getRepository(Grade::class)->findOneBy(array('grade' => $grade));
+                }
+            ),
+            'typeClass' => array(
+                Route::FILTER_OUT => function (TypeClass $class) {
+                    return $class->getClass();
+                },
+                Route::FILTER_IN => function ($class) {
+                    return $this->entityManager->getRepository(TypeClass::class)->findOneBy(array('class' => $class));
+                }
+            ),
+            'day' => array(
+                Route::FILTER_OUT => function (Day $day) {
+                    return $day->getDay()->format('Y-m-d');
+                },
+                Route::FILTER_IN => function ($day) {
+                    $days = new Nette\Utils\DateTime($day);
+                    return $this->entityManager->getRepository(Day::class)->findOneBy(array('day' => $days));
+                }
+            ),
         ));
 
         $administration[] = new Route('trida/<grade><typeClass>', array(

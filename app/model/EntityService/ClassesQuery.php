@@ -19,7 +19,7 @@ class ClassesQuery extends QueryObject
 
     public function setGrade(Grade $grade)
     {
-        $this->gradeID = $grade->id;
+        $this->gradeID = $grade->getId();
     }
 
     /**
